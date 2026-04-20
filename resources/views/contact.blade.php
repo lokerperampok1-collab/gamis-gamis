@@ -49,29 +49,29 @@
 
             {{-- Contact Info --}}
             <div>
-                <div class="card card-body mb-3" style="padding: 28px;">
-                    <div class="flex items-center gap-md mb-2">
+                <a href="https://wa.me/6285849941358" class="card card-body mb-3 contact-card" style="padding: 28px; text-decoration: none; display: block; transition: all 0.2s;">
+                    <div class="flex items-center gap-md">
                         <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(196,162,101,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <i class="fa-brands fa-whatsapp" style="font-size: 20px; color: var(--color-accent);"></i>
                         </div>
                         <div>
-                            <h5 style="font-family: var(--font-body); font-size: 14px; font-weight: 700; margin-bottom: 2px;">WhatsApp</h5>
-                            <p class="text-sm text-muted" style="margin: 0;">+62 813-8968-1142</p>
+                            <h5 style="font-family: var(--font-body); font-size: 14px; font-weight: 700; margin-bottom: 2px; color: var(--color-text);">WhatsApp</h5>
+                            <p class="text-sm text-muted" style="margin: 0;">+62 858-4994-1358</p>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="card card-body mb-3" style="padding: 28px;">
-                    <div class="flex items-center gap-md mb-2">
+                <a href="mailto:cs@ranti.shopx.my.id" class="card card-body mb-3 contact-card" style="padding: 28px; text-decoration: none; display: block; transition: all 0.2s;">
+                    <div class="flex items-center gap-md">
                         <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(196,162,101,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <i class="fa-solid fa-envelope" style="font-size: 18px; color: var(--color-accent);"></i>
                         </div>
                         <div>
-                            <h5 style="font-family: var(--font-body); font-size: 14px; font-weight: 700; margin-bottom: 2px;">Email</h5>
-                            <p class="text-sm text-muted" style="margin: 0;">cs@ranti.co.id</p>
+                            <h5 style="font-family: var(--font-body); font-size: 14px; font-weight: 700; margin-bottom: 2px; color: var(--color-text);">Email</h5>
+                            <p class="text-sm text-muted" style="margin: 0;">cs@ranti.shopx.my.id</p>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <div class="card card-body" style="padding: 28px;">
                     <div class="flex items-center gap-md mb-2">
