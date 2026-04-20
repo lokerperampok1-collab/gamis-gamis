@@ -56,9 +56,9 @@ Route::get('/faq', function () {
     return view('faq');
 })->name('faq');
 
-Route::get('/order-track', function () {
-    return view('order-track');
-})->name('order-track');
+use App\Http\Controllers\OrderTrackingController;
+
+Route::get('/order-track', [OrderTrackingController::class, 'index'])->name('order-track');
 
 // Cart Routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
