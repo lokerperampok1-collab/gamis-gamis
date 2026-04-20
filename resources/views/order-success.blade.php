@@ -117,7 +117,8 @@
                 @endforeach
             </div>
 
-            {{-- Payment Instructions --}}
+            {{-- Payment Instructions (Only show if still pending) --}}
+            @if($order->status === 'pending')
             <div style="text-align: left; margin-bottom: 32px;">
                 <h3 class="font-display" style="font-size: 18px; margin-bottom: 16px; text-align: center;">Instruksi Pembayaran</h3>
                 @if($paymentMethodDetails)
@@ -137,6 +138,7 @@
                     <p class="text-sm text-muted text-center">Menunggu informasi pembayaran...</p>
                 @endif
             </div>
+            @endif
 
             @if(session('success'))
                 <div class="alert alert-success" style="margin-bottom: 24px;">
