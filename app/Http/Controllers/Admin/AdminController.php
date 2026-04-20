@@ -140,9 +140,15 @@ class AdminController extends Controller
             return back()->with('error', 'Pesanan ini tidak dalam status menunggu verifikasi.');
         }
 
-        $order->update(['status' => 'processing']);
+        // Auto-generate tracking number (Resi) similar to common courier formats (RT + numbers + random letters)
+        $trackingNumber = 'RT' . rand(10, 99) . rand(1000, 9999) . rand(1000, 9999) . strtoupper(Str::random(2));
 
-        return back()->with('success', 'Pembayaran berhasil diverifikasi! Pesanan sedang diproses.');
+        $order->update([
+            'status' => 'processing',
+            'tracking_number' => $trackingNumber
+        ]);
+
+        return back()->with('success', 'Pembayaran berhasil diverifikasi! Pesanan sedang diproses dengan Resi Otomatis: ' . $trackingNumber);
     }
 
     public function rejectOrder(Order $order)

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\PaymentMethodController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,6 +20,10 @@ Route::get('/', function () {
     $bestSellers = \App\Models\Product::take(8)->get();
     return view('home', compact('categories', 'bestSellers'));
 });
+
+// Google Authentication Routes
+Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 Route::get('/products', function (Illuminate\Http\Request $request) {
     $categorySlug = $request->get('category');
