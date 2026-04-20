@@ -22,7 +22,9 @@ class PaymentController extends Controller
             return redirect()->route('dashboard')->with('error', 'Pesanan ini sudah dikonfirmasi atau sedang diproses.');
         }
 
-        return view('orders.payment', compact('order'));
+        $paymentMethods = \App\Models\PaymentMethod::active()->get();
+
+        return view('orders.payment', compact('order', 'paymentMethods'));
     }
 
     /**

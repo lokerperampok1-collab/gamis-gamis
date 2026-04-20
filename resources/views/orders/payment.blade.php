@@ -43,17 +43,14 @@
                 <i class="fa-solid fa-building-columns" style="color: var(--color-accent); margin-right: 8px;"></i>
                 Transfer ke Rekening
             </h3>
-            <div class="grid grid-2" style="gap: 16px;">
+            <div class="grid @if($paymentMethods->count() > 1) grid-2 @endif" style="gap: 16px;">
+                @foreach($paymentMethods as $method)
                 <div style="border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); padding: 24px; text-align: center;">
-                    <p class="text-xs text-muted uppercase font-bold mb-1">BCA</p>
-                    <p style="font-size: 20px; font-weight: 700; margin-bottom: 4px; letter-spacing: 1px;">1234567890</p>
-                    <p class="text-xs text-muted">a.n. PT Ranti Exclusive</p>
+                    <p class="text-xs text-muted uppercase font-bold mb-1">{{ $method->name }}</p>
+                    <p style="font-size: 20px; font-weight: 700; margin-bottom: 4px; letter-spacing: 1px;">{{ $method->account_number }}</p>
+                    <p class="text-xs text-muted">a.n. {{ $method->account_name }}</p>
                 </div>
-                <div style="border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); padding: 24px; text-align: center;">
-                    <p class="text-xs text-muted uppercase font-bold mb-1">Mandiri</p>
-                    <p style="font-size: 20px; font-weight: 700; margin-bottom: 4px; letter-spacing: 1px;">0987654321</p>
-                    <p class="text-xs text-muted">a.n. PT Ranti Exclusive</p>
-                </div>
+                @endforeach
             </div>
         </div>
 
