@@ -70,7 +70,7 @@
         </div>
 
         {{-- Order Items --}}
-        <div class="admin-table-wrapper">
+        <div class="admin-table-wrapper" style="margin-bottom: 28px;">
             <div class="admin-table-header">
                 <h3><i class="fa-solid fa-box-open" style="color: var(--color-accent); margin-right: 8px;"></i> Item Pesanan</h3>
             </div>
@@ -112,6 +112,57 @@
             </div>
             @endif
         </div>
+
+        {{-- Logistics & Tracking --}}
+        @if($order->tracking_number)
+        <div class="admin-table-wrapper">
+            <div class="admin-table-header">
+                <h3><i class="fa-solid fa-truck-ramp-box" style="color: var(--color-accent); margin-right: 8px;"></i> Logistik & Pelacakan</h3>
+                <span class="text-xs font-bold" style="background: var(--color-primary-dark); color: #fff; padding: 4px 8px; border-radius: 4px;">RESI: {{ $order->tracking_number }}</span>
+            </div>
+            <div style="padding: 24px;">
+                {{-- Add Log Form --}}
+                <form action="{{ route('admin.orders.log', $order) }}" method="POST" style="background: var(--color-bg-warm); padding: 20px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--color-border-light);">
+                    @csrf
+                    <p class="text-xs text-muted uppercase font-bold mb-3">Input Catatan Perjalanan Baru</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 12px;">
+                        <div>
+                            <label class="text-xs text-muted">Deskripsi Status</label>
+                            <input type="text" name="status_text" class="form-control" placeholder="Contoh: Paket sampai di sortir Jakarta" required style="width:100%; padding: 8px; font-size:14px; border: 1px solid var(--color-border);">
+                        </div>
+                        <div>
+                            <label class="text-xs text-muted">Lokasi (Opsional)</label>
+                            <input type="text" name="location" class="form-control" placeholder="Contoh: Jakarta Selatan" style="width:100%; padding: 8px; font-size:14px; border: 1px solid var(--color-border);">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-plus-circle"></i> Tambah Catatan
+                    </button>
+                </form>
+
+                {{-- Log Timeline --}}
+                <div style="padding-left: 20px; border-left: 2px solid var(--color-border-light); margin-left: 10px;">
+                    @forelse($order->trackingLogs as $log)
+                        <div style="position: relative; margin-bottom: 20px;">
+                            <div style="position: absolute; left: -26px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent);"></div>
+                            <p style="font-weight: 700; font-size: 14px; margin-bottom: 2px; color: var(--color-primary);">{{ $log->status_text }}</p>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <p class="text-xs text-muted">
+                                    <i class="fa-solid fa-clock" style="margin-right: 4px;"></i>
+                                    {{ $log->created_at->format('d M Y, H:i') }}
+                                </p>
+                                @if($log->location)
+                                    <span class="text-xs" style="background: rgba(196,162,101,0.1); color: var(--color-accent); padding: 2px 8px; border-radius: 10px; font-weight: 600;">{{ $log->location }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    @empty
+                        <p class="text-sm text-muted">Belum ada catatan perjalanan paket.</p>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 
     {{-- Right Column: Payment Proof --}}

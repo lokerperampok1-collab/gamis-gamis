@@ -15,16 +15,11 @@ class OrderTrackingController extends Controller
         $order = null;
         $searched = false;
 
-        if ($request->filled('order_id') && $request->filled('email')) {
+        if ($request->filled('tracking_number') && $request->filled('email')) {
             $searched = true;
             
-            // Clean order_id from '#' if present
-            $orderId = str_replace('#', '', $request->order_id);
-            // Remove leading zeros if it was padded
-            $orderId = (int)$orderId;
-
-            $order = Order::with('items.product')
-                ->where('id', $orderId)
+            $order = Order::with(['items.product', 'trackingLogs'])
+                ->where('tracking_number', $request->tracking_number)
                 ->where('email', $request->email)
                 ->first();
         }

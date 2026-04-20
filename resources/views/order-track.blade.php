@@ -28,10 +28,10 @@
 
                 <form action="{{ route('order-track') }}" method="GET">
                     <div class="form-group">
-                        <label class="form-label">Nomor Pesanan</label>
-                        <input type="text" class="form-input" name="order_id" value="{{ request('order_id') }}"
-                            placeholder="Contoh: #000123" required>
-                        <p class="text-xs text-muted mt-1">Ditemukan di email konfirmasi pesanan Anda.</p>
+                        <label class="form-label">Nomor Resi</label>
+                        <input type="text" class="form-input" name="tracking_number" value="{{ request('tracking_number') }}"
+                            placeholder="Contoh: RT12345678" required>
+                        <p class="text-xs text-muted mt-1">Dapatkan nomor resi dari email pengiriman Anda.</p>
                     </div>
 
                     <div class="form-group">
@@ -122,7 +122,35 @@
                     </div>
                 </div>
 
-                {{-- Order Summary Summary --}}
+                {{-- Tracking Logs Timeline --}}
+                <div style="background: var(--color-bg); border-radius: 12px; padding: 24px; margin-bottom: 32px; border: 1px solid var(--color-border-light);">
+                    <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 20px; color: var(--color-primary); border-bottom: 1px solid var(--color-border-light); padding-bottom: 12px;">
+                        <i class="fa-solid fa-history" style="margin-right: 8px;"></i> Riwayat Perjalanan
+                    </h4>
+                    <div style="padding-left: 15px; border-left: 2px solid var(--color-border-light); margin-left: 10px;">
+                        @forelse($order->trackingLogs as $log)
+                            <div style="position: relative; margin-bottom: 24px;">
+                                <div style="position: absolute; left: -21px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); box-shadow: 0 0 0 4px #fff;"></div>
+                                <p style="font-weight: 700; font-size: 14px; margin-bottom: 4px; color: var(--color-text);">{{ $log->status_text }}</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                                    <p class="text-xs text-muted">
+                                        <i class="fa-solid fa-clock" style="margin-right: 4px;"></i>
+                                        {{ $log->created_at->format('d M Y, H:i') }}
+                                    </p>
+                                    @if($log->location)
+                                        <span class="text-xs" style="background: rgba(196,162,101,0.08); color: var(--color-accent); padding: 2px 10px; border-radius: 10px; font-weight: 600;">
+                                            <i class="fa-solid fa-location-dot" style="margin-right: 4px;"></i> {{ $log->location }}
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-sm text-muted">Belum ada riwayat perjalanan yang tersedia.</p>
+                        @endforelse
+                    </div>
+                </div>
+
+                {{-- Order Summary --}}
                 <div style="padding-top: 24px; border-top: 1px solid var(--color-border-light);">
                     <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px;">Ringkasan Barang</h4>
                     @foreach($order->items as $item)

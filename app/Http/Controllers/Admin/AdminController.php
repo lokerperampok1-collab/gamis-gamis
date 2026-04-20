@@ -224,4 +224,19 @@ class AdminController extends Controller
 
         return back()->with('success', 'Pesanan berhasil dibatalkan dan stok telah dikembalikan.');
     }
+
+    public function addTrackingLog(Request $request, Order $order)
+    {
+        $request->validate([
+            'status_text' => 'required|string|max:255',
+            'location' => 'nullable|string|max:255',
+        ]);
+
+        $order->trackingLogs()->create([
+            'status_text' => $request->status_text,
+            'location' => $request->location,
+        ]);
+
+        return back()->with('success', 'Catatan perjalanan paket berhasil ditambahkan!');
+    }
 }

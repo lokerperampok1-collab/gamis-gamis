@@ -38,4 +38,9 @@ class Order extends Model
     {
         return $this->belongsTo(Coupon::class);
     }
+
+    public function trackingLogs()
+    {
+        return $this->hasMany(OrderStatusLog::class)->latest();
+    }
 }

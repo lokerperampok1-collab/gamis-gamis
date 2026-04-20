@@ -179,6 +179,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('/orders/{order}/ship', [AdminController::class, 'shipOrder'])->name('admin.orders.ship');
     Route::patch('/orders/{order}/complete', [AdminController::class, 'completeOrder'])->name('admin.orders.complete');
     Route::patch('/orders/{order}/cancel', [AdminController::class, 'cancelOrder'])->name('admin.orders.cancel');
+    Route::post('/orders/{order}/log', [AdminController::class, 'addTrackingLog'])->name('admin.orders.log');
 });
 
 require __DIR__.'/auth.php';
