@@ -85,9 +85,8 @@
                     <img id="proofPreview" style="display: none; max-width: 100%; max-height: 300px; margin-top: 16px; border-radius: var(--radius-md); border: 1px solid var(--color-border);" alt="Preview">
                 </div>
 
-                <div style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 20px; border-top: 1px solid var(--color-border-light); margin-top: 8px;">
-                    <a href="{{ route('dashboard') }}" class="btn btn-ghost">Nanti Saja</a>
-                    <button type="submit" class="btn btn-primary">
+                <div style="display: flex; justify-content: center; padding-top: 20px; border-top: 1px solid var(--color-border-light); margin-top: 8px;">
+                    <button type="submit" class="btn btn-primary btn-lg" style="min-width: 240px;">
                         <i class="fa-solid fa-paper-plane"></i> Kirim Bukti Pembayaran
                     </button>
                 </div>
