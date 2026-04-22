@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $categories = \App\Models\Category::all();
-    $bestSellers = \App\Models\Product::take(8)->get();
+    $bestSellers = \App\Models\Product::latest()->take(8)->get();
     return view('home', compact('categories', 'bestSellers'));
 });
 
@@ -34,7 +34,7 @@ Route::get('/products', function (Illuminate\Http\Request $request) {
         $query->where('category_id', $category->id);
     }
     
-    $products = $query->paginate(12)->withQueryString();
+    $products = $query->latest()->paginate(12)->withQueryString();
     $categories = Category::all();
     
     return view('products', compact('products', 'categories'));
