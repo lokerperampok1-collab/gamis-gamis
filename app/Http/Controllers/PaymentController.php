@@ -55,6 +55,20 @@ class PaymentController extends Controller
             'status' => 'payment_uploaded',
         ]);
 
+        // Send Telegram Notification
+        try {
+            $telegram = new \App\Services\TelegramService();
+            $message = "💸 *BUKTI PEMBAYARAN MASUK*\n\n";
+            $message .= "🆔 *Order ID:* #".str_pad($order->id, 6, '0', STR_PAD_LEFT)."\n";
+            $message .= "👤 *Pelanggan:* {$order->first_name} {$order->last_name}\n";
+            $message .= "💰 *Total:* Rp " . number_format($order->total_price, 0, ',', '.') . "\n\n";
+            $message .= "📸 Bukti pembayaran telah diunggah. Silakan cek admin panel untuk verifikasi dana!";
+            
+            $telegram->sendMessage($message);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Failed to send payment notification: " . $e->getMessage());
+        }
+
         return redirect()->route('order.success', $order)->with('success', 'Bukti pembayaran berhasil diunggah! Kami akan segera memverifikasi.');
     }
 }

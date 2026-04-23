@@ -175,6 +175,21 @@ class CartController extends Controller
         session()->forget('cart');
         session()->forget('coupon');
 
+        // Send Telegram Notification
+        try {
+            $telegram = new \App\Services\TelegramService();
+            $message = "🛍 *PESANAN BARU MASUK*\n\n";
+            $message .= "🆔 *Order ID:* #".str_pad($order->id, 6, '0', STR_PAD_LEFT)."\n";
+            $message .= "👤 *Pelanggan:* {$order->first_name} {$order->last_name}\n";
+            $message .= "💰 *Total:* Rp " . number_format($order->total_price, 0, ',', '.') . "\n";
+            $message .= "💳 *Metode:* " . ucfirst(str_replace('_', ' ', $order->payment_method)) . "\n\n";
+            $message .= "🚀 Segera cek dashboard admin untuk verifikasi!";
+            
+            $telegram->sendMessage($message);
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("Failed to send checkout notification: " . $e->getMessage());
+        }
+
         return redirect()->route('order.success', $order->id)->with('success', 'Pesanan Anda berhasil dibuat!');
     }
 }
